@@ -23,9 +23,6 @@ export async function fetchCars(filters: FilterProps) {
     },
   };
 
-  // * TEST
-  console.log(`get request url: ${url}`);
-
   try {
     const response = await fetch(url, options);
     const result = await response.json();
