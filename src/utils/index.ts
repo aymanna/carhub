@@ -76,12 +76,25 @@ export const carImageFound = async (carImageUrl: string | URL) => {
   } catch (error) {
     return false;
   }
-}
+};
 
-export const updateSearchParams = (type: string, value: string) => {
+export const updateSearchParams = (
+  type: string,
+  value: string,
+  deleteEmptyValue = false
+) => {
   const searchParams = new URLSearchParams(window.location.search);
   searchParams.set(type, value);
-  const newPathname = `${window.location.pathname}?${searchParams.toString()}`;
 
-  return newPathname;
+  const newSearchParams = searchParams
+    .toString()
+    .split('&')
+    .filter((param) => param.split('=')[1] || !deleteEmptyValue)
+    .join('&');
+
+  const newPathName = `${window.location.pathname}${
+    newSearchParams || !deleteEmptyValue ? `?${newSearchParams}` : ''
+  }`;
+
+  return newPathName;
 };
