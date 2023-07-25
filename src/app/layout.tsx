@@ -7,7 +7,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'car Hub',
+  title: 'Car Hub',
   description: 'Discover the best cars in the world.',
 };
 
@@ -18,6 +18,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/model-icon.png" />
+      </head>
       <body className="relative">
         <NavBar />
         {children}
