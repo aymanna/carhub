@@ -8,7 +8,7 @@ import { fetchCars } from '@/utils';
 import { HomeProps } from '@/types';
 
 export default async function Home({ searchParams }: HomeProps) {
-  const { manufacturer, year, fuel, limit = baseLimit, model } = searchParams;
+  const { manufacturer, year = 2022, fuel, limit = baseLimit, model } = searchParams;
 
   const allCars = await fetchCars({ manufacturer, year, fuel, limit, model });
   const isDataEmpty = !Array.isArray(allCars) || allCars.length < 1 || !allCars;
@@ -39,17 +39,19 @@ export default async function Home({ searchParams }: HomeProps) {
             </div>
 
             <ShowMore
-              pageNumber={limit / baseLimit}
+              pageNumber={Math.round(limit / baseLimit)}
               isNext={limit > allCars.length}
             />
           </section>
         ) : (
-          !searchParams && (
-            <div className="home__error-container">
-              <h2 className="text-black text-xl font-bold">Oops, no results</h2>
-              <p>{allCars?.message}</p>
-            </div>
-          )
+          <div className="home__error-container">
+            <h2 className="text-black text-xl font-bold">
+              {Object.keys(searchParams).length === 0
+                ? 'Find your dream car!'
+                : 'Oops, no results'}
+            </h2>
+            <p>{allCars?.message}</p>
+          </div>
         )}
       </div>
     </main>
