@@ -22,7 +22,7 @@ export interface CarProps {
   cylinders: number;
   displacement: number;
   drive: string;
-  fuelType: string;
+  fuel_type: string;
   highway_mpg: number;
   make: string;
   model: string;
